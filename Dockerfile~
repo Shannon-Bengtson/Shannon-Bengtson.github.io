@@ -1,0 +1,38 @@
+FROM ubuntu:latest
+RUN apt-get update && apt-get -y update
+
+ENV TZ=Pacific/Auckland
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# RUN apt-get install -y build-essential python3.9 python3-pip python3-dev r-base libgeos-dev libproj-dev libcurl4-openssl-dev libssl-dev
+RUN apt update -qq
+RUN apt install --no-install-recommends -y software-properties-common dirmngr
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+RUN add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
+RUN apt install --no-install-recommends r-base
+RUN R --version
+
+RUN apt-get install -y build-essential libcurl4-openssl-dev libssl-dev libxml2
+RUN apt-get install -y libxml2-dev
+RUN apt-get install -y git
+# RUN pip3 -q install pip --upgrade
+
+# RUN mkdir src
+# WORKDIR src/
+# COPY . .
+
+# RUN pip3 install --upgrade cython numpy pyproj
+# RUN pip3 install jupyter pandas matplotlib rpy2 fiona cartopy geopandas shapely
+# RUN pip3 install --index-url https://support.bayesfusion.com/pysmile-A/ pysmile
+
+# Add r kernel to jupyter
+RUN R -e 'install.packages(c("openssl", "curl", "devtools")) ; install.packages(c("rzmq","repr","IRkernel","IRdisplay"),repos="http://irkernel.github.io/",type="source") ; IRkernel:installspec()'
+
+WORKDIR /src/
+
+ENV TINI_VERSION v0.6.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
+RUN chmod +x /usr/bin/tini
+ENTRYPOINT ["/usr/bin/tini", "--"]
+
+CMD ["jupyter", "notebook", "--port=8888", "--no-browser", "--ip=0.0.0.0", "--allow-root"]

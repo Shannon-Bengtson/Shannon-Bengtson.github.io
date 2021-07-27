@@ -1,0 +1,1 @@
+This folder contains one folder for each submodel as shown in the causal diagram

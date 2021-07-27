@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This network was created in GeNIe Academic, which can be used for academic teaching and research purposes only -->
+<smile version="1.0" id="Pto_110_lagoonside" numsamples="10000" discsamples="10000">
+	<nodes>
+		<equation id="Wind">
+			<definition>Wind=Normal(4.93995,1.94997)</definition>
+		</equation>
+		<equation id="WindDir">
+			<definition>WindDir=Normal(161.207,68.2107)</definition>
+		</equation>
+		<equation id="Tm_offshore">
+			<parents>Wind WindDir</parents>
+			<definition>Tm_offshore=-0.219072*Wind-0.00575402*WindDir+Normal(5.31995,1.13983)</definition>
+		</equation>
+		<equation id="Hs_offshore">
+			<parents>Tm_offshore</parents>
+			<definition>Hs_offshore=0.0821086*Tm_offshore+Normal(0.68323,0.267462)</definition>
+		</equation>
+		<equation id="Dir_offshore">
+			<parents>Tm_offshore Wind WindDir</parents>
+			<definition>Dir_offshore=13.8506*Tm_offshore-12.7376*Wind-0.166537*WindDir+Normal(211.25,71.9627)</definition>
+		</equation>
+		<equation id="Tide">
+			<definition>Tide=Normal(-1.60311e-06,0.481848)</definition>
+		</equation>
+		<equation id="MSL">
+			<parents>WindDir</parents>
+			<definition>MSL=-0.000185512*WindDir+Normal(0.0293867,0.0617956)</definition>
+		</equation>
+		<equation id="Hs_point_110">
+			<parents>Hs_offshore Tm_offshore Dir_offshore Wind WindDir MSL</parents>
+			<definition>Hs_point_110=0.0899444*Hs_offshore-0.00788084*Tm_offshore-0.000554524*Dir_offshore+0.0670613*Wind+0.000649269*WindDir-0.594576*MSL+Normal(0.880882,0.224659)</definition>
+		</equation>
+		<equation id="TWL_point_110">
+			<parents>Tide MSL Hs_point_110</parents>
+			<definition>TWL_point_110=1.00016*Tide+1.03315*MSL-0.0222521*Hs_point_110+Normal(0.0270694,0.0102251)</definition>
+		</equation>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 3.0.5905.0 ACADEMIC" name="Pto_110_lagoonside">
+			<node id="Hs_offshore">
+				<name>Hs_offshore</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>29 118 101 166</position>
+			</node>
+			<node id="Tm_offshore">
+				<name>Tm_offshore</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>29 40 101 88</position>
+			</node>
+			<node id="Dir_offshore">
+				<name>Dir_offshore</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>165 12 237 60</position>
+			</node>
+			<node id="Wind">
+				<name>Wind</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>378 33 450 81</position>
+			</node>
+			<node id="WindDir">
+				<name>WindDir</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>377 98 449 146</position>
+			</node>
+			<node id="Tide">
+				<name>Tide</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>31 288 103 336</position>
+			</node>
+			<node id="MSL">
+				<name>MSL</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>376 222 448 270</position>
+			</node>
+			<node id="Hs_point_110">
+				<name>Hs_point_110</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>167 265 239 313</position>
+			</node>
+			<node id="TWL_point_110">
+				<name>TWL_point_110</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>28 187 100 235</position>
+			</node>
+			<textbox>
+				<caption>Input file: Pto_110_lagoonside.gdat\nData rows: 227904\nElapsed time: 0.5s\n\nLearning algorithm: PC\nAlgorithm parameters:\nMax adjacency: 8\nSignificance: 0.05\nMax search time: 0\nNo background knowledge\n\nEM Log Likelihood: 0</caption>
+				<font color="000000" name="Arial" size="8" />
+				<position>10 356 176 524</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file was created by ACADEMIC version of SMILE -->
+<smile version="1.0" id="Unnamed" numsamples="10000" discsamples="10000">
+	<nodes>
+		<cpt id="wind_speed">
+			<state id="S0" />
+			<state id="S1" />
+			<state id="S2" />
+			<probabilities>0.2766384091547318 0.4190799634934007 0.3042816273518675</probabilities>
+		</cpt>
+		<cpt id="wind_dir">
+			<state id="S0" />
+			<state id="S1" />
+			<state id="S2" />
+			<probabilities>0.1070055812973884 0.3904933656276327 0.5025010530749789</probabilities>
+		</cpt>
+		<cpt id="H0">
+			<state id="S0" />
+			<state id="S1" />
+			<state id="S2" />
+			<parents>wind_dir wind_speed</parents>
+			<probabilities>0.5417422867513612 0.3368118572292801 0.1214458560193587 0.1972001615291425 0.4034190335172971 0.3993808049535604 0.01017675415104446 0.1885377611140868 0.8012854847348688 0.6669507345183021 0.282038795552309 0.05101046992938885 0.5291330382712836 0.4094766987763603 0.06139026295235616 0.171568438499788 0.6230967891145974 0.2053347723856146 0.6760652873198046 0.2683769508756602 0.05555776180453516 0.4978357592961688 0.4287008516035514 0.07346338910027984 0.1449458028737081 0.6396269221073859 0.215427275018906</probabilities>
+		</cpt>
+		<cpt id="H0L0">
+			<state id="S0" />
+			<state id="S1" />
+			<state id="S2" />
+			<parents>wind_dir wind_speed</parents>
+			<probabilities>0.860934664246824 0.1360405323653963 0.003024803387779794 0.2608695652173913 0.6548660654193027 0.08426436936330596 0.009105516871987145 0.4003749330476701 0.5905195500803428 0.6304683061439819 0.3512701891080269 0.01826150474799123 0.0590991929185108 0.6706847175214787 0.2702160895600104 0.0003083683459892842 0.2873222063755155 0.7123694252784951 0.6116119296294825 0.3674595925499384 0.02092847782057901 0.05645145054458336 0.6434740593102615 0.3000744901451551 0.0007814469372321653 0.2694983614822284 0.7297201915805395</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="SMILE_ACADEMIC 1.6.0" name="Unnamed">
+			<node id="wind_speed">
+				<name>wind_speed</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="wind_dir">
+				<name>wind_dir</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="H0">
+				<name>H0</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="H0L0">
+				<name>H0L0</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+		</genie>
+	</extensions>
+</smile>
