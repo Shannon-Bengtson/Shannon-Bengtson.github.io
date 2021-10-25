@@ -46,8 +46,8 @@ def create_BN_time_t(lagoon_model_dict,
     ocean_file_label = "ocean"
 
     # Discretise the data
-    lagoon_model_dict = BNModel().discretiser(lagoon_model_dict)
-    ocean_model_dict = BNModel().discretiser(ocean_model_dict)
+    lagoon_model_dict = BNModel().discretiser(lagoon_model_dict,[])
+    ocean_model_dict = BNModel().discretiser(ocean_model_dict,[])
 
     # Save the dataset
     BNModel().save_dataset(lagoon_model_dict,lagoon_file_label)
