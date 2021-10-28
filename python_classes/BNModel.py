@@ -56,10 +56,10 @@ class BNModel():
             # order the indecies
             training_index = np.sort(df_training.index)
             testing_index = np.sort(df_testing.index)
-
+            
             # Get the arrays for testing and training to add to the model_dict
             for var_key, data_array in data_dict.items():
-
+                
                 var_training_array = data_array[training_index]
                 var_testing_array = data_array[testing_index]
 
