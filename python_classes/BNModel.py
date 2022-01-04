@@ -56,10 +56,10 @@ class BNModel():
             # order the indecies
             training_index = np.sort(df_training.index)
             testing_index = np.sort(df_testing.index)
-
+            
             # Get the arrays for testing and training to add to the model_dict
             for var_key, data_array in data_dict.items():
-
+                
                 var_training_array = data_array[training_index]
                 var_testing_array = data_array[testing_index]
 
@@ -73,7 +73,7 @@ class BNModel():
 
         return(model_dict)
         
-    def discretiser(self,model_dict):
+    def discretiser(self,model_dict,exclusion_list):
         '''
         This function goes over all the variables in the model_dict, and discretises them using KBinsDiscretizer.
         Importantly, it also adds all data to the model_dict (even if it doesn't need discretisation)
@@ -249,7 +249,7 @@ class BNModel():
                 
             # Data that doesn't require discretisation
             else:
-                
+                print(var_key)
                 # Add the preprocessed data as the raw data
                 var_dict.update({
                     var_key:{**var_dict[var_key],
@@ -263,7 +263,7 @@ class BNModel():
         
         return(model_dict)
     
-    def plot_discretiser(self,model_dict):
+    def plot_discretiser(self,model_dict,exclusion_list):
         '''
         Function for plotting histograms of the data before it was discretised (preprocessed) and the associated bins, for each repetition
         inputs:
@@ -273,6 +273,8 @@ class BNModel():
         '''
         # Get just the dictionary of variables
         var_dict = model_dict['variables']
+        for key in exclusion_list:
+            del var_dict[key] 
         
         # Setup figure
         fig, axes = plt.subplots(nrows=len(var_dict.keys()),ncols=2,figsize=(10,20))
@@ -416,9 +418,12 @@ class BNModel():
             for var_key,var_dict in model_dict['variables'].items():
                 net.add_node(pysmile.NodeType.CPT, var_key)
                 # Add node outcomes based on bins of discretisation
-                for outcome in var_dict['discretisation']['bin_names']:
-                    net.add_outcome(var_key,outcome)
-
+                if 'discretisation' in var_dict.keys():
+                    for outcome in var_dict['discretisation']['bin_names']:
+                        net.add_outcome(var_key,outcome)
+                else:
+                    for outcome in np.unique(var_dict['bins']):
+                        net.add_outcome(var_key,outcome)
                 # Delete the preexisting outcomes (state0 and state1)
                 net.delete_outcome(var_key,'State0')
                 net.delete_outcome(var_key,'State1')

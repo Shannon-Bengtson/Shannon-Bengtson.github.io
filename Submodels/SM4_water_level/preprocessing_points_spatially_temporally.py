@@ -97,9 +97,9 @@ def preprocessing_points_spatially_temporally(
                  ['TWL']}
 
         # Add total water level less tide
-        tlw_less_tide = {'TWL_less_Tide':inundation_subset_dict['TWL']-tide_dict['Tide']}
+        WL_wave_comp = {'WL_wave_comp':inundation_subset_dict['TWL']-tide_dict['Tide']-sla_dict['MSL']}
 
-        BN_vars_dict = {**inundation_subset_dict,**waves_subset_dict,**tide_dict,**sla_dict,**winds_dict,**time_dict, **tlw_less_tide}
+        BN_vars_dict = {**inundation_subset_dict,**waves_subset_dict,**tide_dict,**sla_dict,**winds_dict,**time_dict, **WL_wave_comp}
 
         BN_vars_dict['Hs_offshore'] = BN_vars_dict.pop('Hso')
         BN_vars_dict['Tm_offshore'] = BN_vars_dict.pop('Tmo')
@@ -149,14 +149,6 @@ def preprocessing_points_spatially_temporally(
     # Reset in the dataframe indexes
     df_lagoon.reset_index(drop=True,inplace=True)
     df_ocean.reset_index(drop=True,inplace=True)
-    
-    # Create dictionary of variables
-    lagoon_data_dict = {column:np.array(df_lagoon[column]) for column in df_lagoon.columns}
-    ocean_data_dict = {column:np.array(df_ocean[column]) for column in df_ocean.columns}
-    
-    # Remove the variables that I don't want to include in the model
-    lagoon_data_dict = {key:item for key,item in lagoon_data_dict.items() if key not in ['lat','long','time']}
-    ocean_data_dict = {key:item for key,item in ocean_data_dict.items() if key not in ['lat','long','time','wind_u','wind_v']}
 
     # Save the dataframes
-    return(df_ocean,df_lagoon,ocean_data_dict,lagoon_data_dict)
+    return(df_ocean,df_lagoon)
