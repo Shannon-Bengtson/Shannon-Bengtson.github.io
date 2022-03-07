@@ -593,7 +593,11 @@ class BNModel():
                 if 'evidence' in model_dict['variables'][var_key].keys():
 
                     # Get the evidence in the same order as the they are in the network
-                    evidence_dict = dict(zip(model_dict['variables'][var_key]['discretisation']['bin_names'],model_dict['variables'][var_key]['evidence']))
+                    if 'discretisation' in model_dict['variables'][var_key].keys():
+                        evidence_dict = dict(zip(model_dict['variables'][var_key]['discretisation']['bin_names'],model_dict['variables'][var_key]['evidence']))
+                    else:
+                        evidence_dict = dict(zip(model_dict['variables'][var_key]['bins'],model_dict['variables'][var_key]['evidence']))
+                        
                     evidence_list = [evidence_dict[x] for x in net.get_outcome_ids(node_id)]
 
                     # Apply evidence to network
@@ -612,10 +616,16 @@ class BNModel():
 
                 # Assign to dict with each of the outcomes of the node
                 prob_dict = {}
-                for bin_name,prob in zip(model_dict['variables'][var_key]['discretisation']['bin_names'],prob):
-                    prob_dict.update({
-                        bin_name:prob
-                    })
+                if 'discretisation' in model_dict['variables'][var_key].keys():
+                    for bin_name,prob in zip(model_dict['variables'][var_key]['discretisation']['bin_names'],prob):
+                        prob_dict.update({
+                            bin_name:prob
+                        })
+                else:
+                    for bin_name,prob in zip(model_dict['variables'][var_key]['bins'],prob):
+                        prob_dict.update({
+                            bin_name:prob
+                        })
                 
                 # Update the network in the dictionary for this rep
                 model_dict['variables'][var_key]['resulting_probs'].update({rep:prob_dict})
